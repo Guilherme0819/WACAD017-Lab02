@@ -1,8 +1,9 @@
 name: Simple Local (Ex 01)
+
 on:
   push:
     paths:
-      - 'exercicio01/**'  # Monitora a pasta exercicio01
+      - 'exercicio01/**'  # O segredo: só roda se mexer na pasta 01
 
 jobs:
   build-node:
@@ -16,5 +17,6 @@ jobs:
       - run: npm --version
       - uses: actions/checkout@v3
       - run: npm install
-      - run: npm install --save moment
+      # Se você usou o moment no ex1, mantenha, senão pode tirar esta linha:
+      - run: npm install --save moment 
       - run: node app.js
