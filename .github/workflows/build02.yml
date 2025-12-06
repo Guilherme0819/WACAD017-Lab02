@@ -3,23 +3,23 @@ name: Build V2 (Exercicio 02)
 on:
   push:
     paths:
-      - 'exercicio02/**'  # Só roda se mexer na pasta 02
+      - 'exercicio02/**'
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./exercicio02 # <--- Define a pasta para este job
+        working-directory: ./exercicio02
     steps:
-      - uses: actions/checkout@v3      # <--- PRIMEIRO PASSO SEMPRE
+      - uses: actions/checkout@v3
       - name: Install dependencies
-        run: npm install               # <--- Instalação flexível
+        run: npm ci                    # <--- VOLTOU A SER CI
       - name: Run Lint
         run: npm run lint
 
   test:
-    needs: lint                        # <--- Só começa se o Lint passar
+    needs: lint
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -27,12 +27,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
-        run: npm install
+        run: npm ci                    # <--- VOLTOU A SER CI
       - name: Test code
         run: npm run test
 
   deploy:
-    needs: test                        # <--- Só começa se o Test passar
+    needs: test
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -40,7 +40,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
-        run: npm install
+        run: npm ci                    # <--- VOLTOU A SER CI
       - name: Build code
         run: npm run build
       - name: Deploy code
