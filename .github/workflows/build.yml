@@ -2,7 +2,7 @@ name: Simple Local (Ex 01)
 on:
   push:
     paths:
-      - 'exercicio-01/**'  
+      - 'exercicio01/**'  # Monitora a pasta exercicio01
 
 jobs:
   build-node:
@@ -10,8 +10,11 @@ jobs:
     container: node:18
     defaults:
       run:
-        working-directory: ./exercicio-01  
+        working-directory: ./exercicio01  # Entra na pasta antes de rodar
     steps:
+      - run: node --version
+      - run: npm --version
       - uses: actions/checkout@v3
       - run: npm install
+      - run: npm install --save moment
       - run: node app.js
