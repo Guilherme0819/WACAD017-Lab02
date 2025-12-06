@@ -1,0 +1,49 @@
+name: Build V2 (Exercicio 02)
+on:
+  push:
+    paths:
+      - 'exercicio02/**'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./exercicio02 # <--- Aponta para a pasta
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+
+  test:
+    needs: lint   # <--- Descomentado para esperar o Lint passar
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./exercicio02 # <--- Aponta para a pasta
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Test code
+        run: npm run test
+
+  deploy:
+    needs: test   # <--- Descomentado para esperar o Test passar
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./exercicio02 # <--- Aponta para a pasta
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Build code
+        run: npm run build
+      - name: Deploy code
+        run: echo "Deploying..."

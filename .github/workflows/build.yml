@@ -1,8 +1,17 @@
-name: Simple Local
-on: push
+name: Simple Local (Ex 01)
+on:
+  push:
+    paths:
+      - 'exercicio-01/**'  
+
 jobs:
-  first-job:
+  build-node:
     runs-on: ubuntu-latest
+    container: node:18
+    defaults:
+      run:
+        working-directory: ./exercicio-01  
     steps:
-      - name: Diga oi
-        run: echo "Hello World!"
+      - uses: actions/checkout@v3
+      - run: npm install
+      - run: node app.js
