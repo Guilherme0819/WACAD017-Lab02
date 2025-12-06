@@ -1,6 +1,6 @@
 name: Simple Local (Ex 01)
 
-on: push  # <--- Mudei aqui: removi o paths para rodar em qualquer mudança
+on: push
 
 jobs:
   build-node:
@@ -10,10 +10,13 @@ jobs:
       run:
         working-directory: ./exercicio01
     steps:
+      # CORREÇÃO: O Checkout tem que ser o PRIMEIRO!
+      - uses: actions/checkout@v3
+      
+      # Depois que baixou, aí sim rodamos os comandos:
       - run: node --version
       - run: npm --version
-      - uses: actions/checkout@v3
       - run: npm install
-      # Se tiver o moment no seu package.json do ex1, deixe essa linha. Se não, pode tirar.
+      # Se tiver o moment no package.json, mantenha essa linha abaixo, senão pode tirar
       - run: npm install --save moment 
       - run: node app.js
